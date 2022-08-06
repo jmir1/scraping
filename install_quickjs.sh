@@ -1,3 +1,4 @@
+[ -d deps ] || mkdir deps
 cd deps
 rm -rf quickjs
 mkdir quickjs
