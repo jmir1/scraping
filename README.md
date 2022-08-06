@@ -1,6 +1,6 @@
-## Repo for scraping anime websites
+# Repo for scraping anime websites
 
-# Prerequisites
+## Prerequisites
 
 you need quickjs to run the javascript code.  
 
@@ -8,7 +8,7 @@ just execute `./install_quickjs.sh`, after the install you should have the `qjs`
 
 q: why quickjs? a: because aniyomi extensions can use quickjs
 
-# 9anime
+## 9anime
 
 run `get_scripts.sh` to download the latest `all.js` file from 9anime.  
 
