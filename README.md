@@ -12,7 +12,7 @@ q: why quickjs? a: because aniyomi extensions can use quickjs
 
 run `get_scripts.sh` to download the latest `all.js` file from 9anime.  
 
-then, run `qjs find.js` and it should display two strings, the first one is used for "decoding", the second one for "encoding".  
+then, run `qjs find.js` and it should display two strings, the first one is used for "encoding", the second one for "decoding".  
 
 q: how does it work? a: we use a regex to find the variable names, modify the js file to save the variables, and then execute the script with some "dummy code" at the top (`prefix.js`) to make sure it runs until it is done initializing the variables.  
 
