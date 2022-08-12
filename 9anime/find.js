@@ -1,25 +1,23 @@
-import { loadFile, exit, open } from "std";
+import { loadFile, exit } from "std";
 
 let secret0 = "";
 let secret1 = "";
 const script = loadFile("all.js");
 const prefix = loadFile("prefix.js")
 var newscript = prefix + script;
-const regex = /(?<=this\[".."\])(\(.\[.\(.{5,50}\]\()+(..\+){2,3}..,..(\),..\)\+..\+..)*(?=[\)\,])/gm
+const fn_regex = /or(?=:function\(.*?\) {var \w=.*?return .;})/gm
+let fn_name = script.match(fn_regex);
+const regex = RegExp(String.raw`(?<=this\["${fn_name}"]\().+?(?=,)`, "gm");
 let res = [...script.matchAll(regex)];
 if (res.length !== 2) {
     console.log("didn't find two matches");
     exit(1);
 }
 for (var index of [1,0]) {
-    let match = res[index];
-    let i = match[0].lastIndexOf('(');
-    let matchb = match[0].substring(i + 1);
-    let matchc = matchb.replace(/[,+()]+/g, ",");
-    let varnames = matchc.split(",");
-    varnames.reverse();
+    let match = res[index][0];
+    let varnames = match.split("+");
     for (var varnameindex = 0; varnameindex < varnames.length; varnameindex++) {
-        let varname = varnames[varnameindex]
+        let varname = varnames[varnameindex];
         let search = `${varname}=`;
         // variables are declared on line 2
         let line2index = script.indexOf("\n") + prefix.length;
@@ -29,7 +27,7 @@ for (var index of [1,0]) {
         let j = after.indexOf(";") + i + 1;
         let before = newscript.substring(0, j + 1);
         let after_semicolon = newscript.substring(j + 1);
-        newscript = before + `secret${index}+=${varname};` + after_semicolon;
+        newscript = before + `secret${index}=${res[index][0]};` + after_semicolon;
     }
 };
 try { eval(newscript); } catch(e) {}
