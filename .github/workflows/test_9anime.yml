@@ -24,4 +24,4 @@ jobs:
           qjs find.js > results.txt
 
       - name: Print output
-        run: cat results.txt
+        run: cat 9anime/results.txt
