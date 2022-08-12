@@ -1,0 +1,27 @@
+name: Test 9anime script
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v3
+
+      - name: Install QuickJS
+        run: |
+          set -e
+          ./install_quickjs.sh
+
+      - name: Test script
+        run: |
+          set -e
+          cd 9anime
+          ./get_scripts.sh
+          qjs find.js > results.txt
+
+      - name: Print output
+        run: cat results.txt

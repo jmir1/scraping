@@ -33,3 +33,5 @@ for (var index of [1,0]) {
 try { eval(newscript); } catch(e) {}
 console.log("secret 0:", secret0);
 console.log("secret 1:", secret1);
+let return_object = {cipher: secret0, decipher: secret1};
+return_object;
